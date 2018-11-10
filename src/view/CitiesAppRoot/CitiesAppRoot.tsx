@@ -6,7 +6,7 @@ import { fetchCity, OSMPlace, OSMPlacePlus } from '../../tools/fetchCity';
 import { PieChart, Legend, Pie, Cell } from 'recharts';
 //import { scaleOrdinal } from 'd3-scale';
 //import { schemeCategory10 } from 'd3-scale-chromatic';
-import { PIE_DATA } from '../../dataMocks/data';
+import { generate_PIE_DATA } from '../../dataMocks/data';
 import { ICoordinates } from '../maps/ICoordinates';
 import {
     getCoordinates,
@@ -112,7 +112,7 @@ export class CitiesAppRoot extends React.Component<
                             <PieChart width={190} height={190}>
                                 {/* <Legend /> */}
                                 <Pie
-                                    data={PIE_DATA}
+                                    data={generate_PIE_DATA()}
                                     dataKey="value"
                                     cx={90}
                                     cy={90}
@@ -121,7 +121,7 @@ export class CitiesAppRoot extends React.Component<
                                     innerRadius={1}
                                     outerRadius={90}
                                 >
-                                    {PIE_DATA.map((entry, index) => (
+                                    {generate_PIE_DATA().map((entry, index) => (
                                         <Cell
                                             key={`slice-${index}`}
                                             fill={entry.color}
@@ -163,6 +163,23 @@ export class CitiesAppRoot extends React.Component<
                                     onclick={() => {
                                         this.changeCity(place);
                                     }}
+                                    stroke={true}
+                                    color = {place===this.state.city?'#1166cc':'#777'}
+
+                                    // stroke?: boolean;
+                                    // color?: string;
+                                    // weight?: number;
+                                    // opacity?: number;
+                                    // lineCap?: LineCapShape;
+                                    // lineJoin?: LineJoinShape;
+                                    // dashArray?: string;
+                                    // dashOffset?: string;
+                                    // fill?: boolean;
+                                    // fillColor?: string;
+                                    // fillOpacity?: number;
+                                    // fillRule?: FillRule;
+                                    // renderer?: Renderer;
+                                    // className?: string;
                                 />
                             ))}
                         </DefaultMap>
