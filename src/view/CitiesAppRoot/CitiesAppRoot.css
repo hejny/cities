@@ -17,6 +17,7 @@
 
 .CitiesAppRoot .city{
 
+    display: none;
     z-index: 30;
     position: absolute;
     top: calc(100vh - 70px);
@@ -59,6 +60,29 @@
     height: 100%;
     border-radius: 1000px;
     background-color: white;
+    /* display: flex;
+    align-content: center;
+    justify-items: center; */
+
+    border: 1px solid #ccc; 
+} 
+
+.CitiesAppRoot .avatar .inner h1{
+    display: block;
+    text-align: center;
+    
+
+    font-size: 1.5rem;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    
+    margin-top: 60px;
+
+
+    color: white;
+    text-shadow: black 0 0 3px;
+    /* border: 1px solid red;  */
 } 
 
 .CitiesAppRoot .chart{

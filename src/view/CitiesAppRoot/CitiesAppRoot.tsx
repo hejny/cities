@@ -7,13 +7,15 @@ import { PieChart, Legend, Pie, Cell } from 'recharts';
 //import { scaleOrdinal } from 'd3-scale';
 //import { schemeCategory10 } from 'd3-scale-chromatic';
 import { PIE_DATA } from '../../dataMocks/data';
+import { ICoordinates } from '../maps/ICoordinates';
+import { getCoordinates, countCenterOfGeoJson } from '../../tools/countCenterOfGeoJson';
 //const colors = scaleOrdinal(schemeCategory10).range();
 
 interface CitiesAppRootProps {}
 
 interface CitiesAppRootState {
     places: OSMPlace[];
-    center: null | { lat: number; lng: number };
+    center: null | ICoordinates;
 }
 
 export class CitiesAppRoot extends React.Component<
@@ -62,6 +64,12 @@ export class CitiesAppRoot extends React.Component<
         });
     }
 
+    async changeCity(city: OSMPlace) {
+        this.setState({
+            center: countCenterOfGeoJson(city.geojson)
+        });
+    }
+
     render() {
         return (
             <div className="CitiesAppRoot">
@@ -88,7 +96,11 @@ export class CitiesAppRoot extends React.Component<
                             backgroundSize: 'cover',
                             backgroundPosition: 'bottom center',
                         }}
-                    />
+                    >
+
+                        <h1>Prague</h1>
+                    </div>
+                    
                 </div>
 
                 <div className="chart">
@@ -137,9 +149,9 @@ export class CitiesAppRoot extends React.Component<
                             {this.state.places.map((place: OSMPlace) => (
                                 <Polygon
                                     key={place.place_id}
-                                    positions={place.geojson.coordinates[0].map(
-                                        ([lng, lat]) => ({ lat, lng }),
-                                    )}
+                                    positions={place.geojson.coordinates[0].map(getCoordinates)}
+                                    onclick={()=>{alert(1)}}
+                                    
                                 />
                             ))}
                         </DefaultMap>

@@ -1,7 +1,7 @@
 const OSM_API = 'https://nominatim.openstreetmap.org';
 
 export async function fetchCity(cityName: string): Promise<OSMPlace> {
-    const url = `${OSM_API}/search?format=json&city=${encodeURIComponent(
+    const url = `${OSM_API}/search?format=json&accept-language=en&city=${encodeURIComponent(
         cityName,
     )}&polygon_geojson=1&limit=1`;
     const result = await fetch(url);
