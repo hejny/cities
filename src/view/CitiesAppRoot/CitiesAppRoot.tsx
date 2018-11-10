@@ -90,7 +90,7 @@ export class CitiesAppRoot extends React.Component<
                 <nav className="app-name">Hot🔥Net</nav>
 
                 <button className="center" onClick={() => this.centerByGPS()}>
-                    Center
+                    GPS
                 </button>
 
                 {this.state.city && (
