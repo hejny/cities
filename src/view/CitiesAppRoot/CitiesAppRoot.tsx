@@ -1,45 +1,19 @@
 import './CitiesAppRoot.css';
 import * as React from 'react';
-import { Marker, Polygon } from 'react-leaflet';
+import { Polygon } from 'react-leaflet';
 import { DefaultMap } from '../maps/DefaultMap';
-import { OSMGeoJson, fetchCity, OSMPlace } from '../../tools/fetchCity';
-import {
-    LineChart,
-    XAxis,
-    Tooltip,
-    CartesianGrid,
-    Line,
-    PieChart,
-    Legend,
-    Pie,
-    Label,
-    LabelList,
-    Cell,
-} from 'recharts';
+import { fetchCity, OSMPlace } from '../../tools/fetchCity';
+import { PieChart, Legend, Pie, Cell } from 'recharts';
 import { scaleOrdinal } from 'd3-scale';
 import { schemeCategory10 } from 'd3-scale-chromatic';
-import { Polyline } from 'leaflet';
 import { PIE_DATA } from '../../dataMocks/data';
 const colors = scaleOrdinal(schemeCategory10).range();
-
-const MAP_CENTER = { lat: 49.37522008, lng: 13.66699218 };
-
-function randomInt(max = 1) {
-    return Math.floor(random(max));
-}
-
-function random(max = 1) {
-    return Math.random() * max;
-}
-
-function randomSign() {
-    return random() < 0.5 ? -1 : 1;
-}
 
 interface CitiesAppRootProps {}
 
 interface CitiesAppRootState {
     places: OSMPlace[];
+    center: null | { lat: number; lng: number };
 }
 
 export class CitiesAppRoot extends React.Component<
@@ -48,6 +22,7 @@ export class CitiesAppRoot extends React.Component<
 > {
     state: CitiesAppRootState = {
         places: [],
+        center: { lat: 50, lng: 14.4 },
     };
 
     constructor(props: CitiesAppRootProps) {
@@ -65,6 +40,15 @@ export class CitiesAppRoot extends React.Component<
         //this.loadCity('Paris'); - only one district
         //this.loadCity('Bratislava');
         //this.loadCity('Wien');
+
+        navigator.geolocation.getCurrentPosition((location) => {
+            this.setState({
+                center: {
+                    lat: location.coords.latitude,
+                    lng: location.coords.longitude,
+                },
+            });
+        });
     }
 
     async loadCity(cityName: string) {
@@ -111,20 +95,22 @@ export class CitiesAppRoot extends React.Component<
                 </div>
 
                 <div className="map">
-                    <DefaultMap center={MAP_CENTER} zoom={8}>
-                        {/* {markers.map((position, key) => (
+                    {this.state.center && (
+                        <DefaultMap center={this.state.center} zoom={9}>
+                            {/* {markers.map((position, key) => (
                             <Marker {...{ position, key }} />
                         ))} */}
 
-                        {this.state.places.map((place: OSMPlace) => (
-                            <Polygon
-                                key={place.place_id}
-                                positions={place.geojson.coordinates[0].map(
-                                    ([lng, lat]) => ({ lat, lng }),
-                                )}
-                            />
-                        ))}
-                    </DefaultMap>
+                            {this.state.places.map((place: OSMPlace) => (
+                                <Polygon
+                                    key={place.place_id}
+                                    positions={place.geojson.coordinates[0].map(
+                                        ([lng, lat]) => ({ lat, lng }),
+                                    )}
+                                />
+                            ))}
+                        </DefaultMap>
+                    )}
                 </div>
             </div>
         );
