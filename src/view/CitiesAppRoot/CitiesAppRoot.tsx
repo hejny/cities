@@ -27,6 +27,7 @@ export class CitiesAppRoot extends React.Component<
 
     constructor(props: CitiesAppRootProps) {
         super(props);
+
         this.loadCity('Prague');
         this.loadCity('Warsaw');
         this.loadCity('Poznan');
@@ -35,12 +36,22 @@ export class CitiesAppRoot extends React.Component<
         this.loadCity('Brno');
         this.loadCity('Olomouc');
         this.loadCity('Budapest');
+
+        //Not working:
         //this.loadCity('Nürnberg');
         //this.loadCity('Berlin');
         //this.loadCity('Paris'); - only one district
         //this.loadCity('Bratislava');
         //this.loadCity('Wien');
+        //this.loadCity('London');
+    }
 
+    async loadCity(cityName: string) {
+        const city = await fetchCity(cityName);
+        this.setState({ places: [...this.state.places, city] });
+    }
+
+    async centerByGPS() {
         navigator.geolocation.getCurrentPosition((location) => {
             this.setState({
                 center: {
@@ -49,11 +60,6 @@ export class CitiesAppRoot extends React.Component<
                 },
             });
         });
-    }
-
-    async loadCity(cityName: string) {
-        const city = await fetchCity(cityName);
-        this.setState({ places: [...this.state.places, city] });
     }
 
     render() {
@@ -70,6 +76,10 @@ export class CitiesAppRoot extends React.Component<
                     Prague
                 </div> */}
 
+                <button className="center" onClick={() => this.centerByGPS()}>
+                    Center
+                </button>
+
                 <div className="chart">
                     <PieChart width={420} height={210}>
                         {/* <Legend /> */}
@@ -80,7 +90,8 @@ export class CitiesAppRoot extends React.Component<
                             cy={200}
                             startAngle={180}
                             endAngle={0}
-                            outerRadius={200}
+                            innerRadius={10}
+                            outerRadius={50}
                         >
                             {PIE_DATA.map((entry, index) => (
                                 <Cell
@@ -93,6 +104,16 @@ export class CitiesAppRoot extends React.Component<
                             {/*<LabelList position="outside" />*/}
                         </Pie>
                     </PieChart>
+                </div>
+                <div
+                    className="city"
+                    style={{
+                        //background: `url("https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fwww.timeout.com%2Fwp-content%2Fuploads%2F2014%2F08%2FCharles_Bridge_courtyardpixShutterstock.com_.jpg&u=https://www.timeout.com/wp-content/uploads/2014/08/Charles_Bridge_courtyardpixShutterstock.com_.jpg")`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'bottom center',
+                    }}
+                >
+                    <h1>Prague</h1>
                 </div>
 
                 <div className="map">

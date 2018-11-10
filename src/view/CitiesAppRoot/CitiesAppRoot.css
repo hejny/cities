@@ -6,12 +6,34 @@
     z-index: 10;
 }
 
+.CitiesAppRoot button.center{
+    z-index: 20;
+    position: absolute;
+    top: 10px;
+    left:10px;
+}
+
+.CitiesAppRoot .city{
+
+    z-index: 20;
+    position: absolute;
+    top: calc(100vh - 70px);
+    left: 0;
+    right: 0;
+    min-height: 500px;
+
+    background-color: white;
+    box-shadow: black 0 0 5px;
+    text-align: center;
+
+}
+
 .CitiesAppRoot .chart{
     z-index: 20;
     position: absolute;
-    bottom: 0;
+    bottom: 70px;
     left: 50%;
-    margin-bottom:-10px; 
+    margin-bottom:-5px; 
 
     transform: translate(-50%,0);
 
