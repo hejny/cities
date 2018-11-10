@@ -1,0 +1,13 @@
+.CitiesAppRoot{
+
+}
+
+.CitiesAppRoot .map{
+    z-index: 10;
+}
+
+.CitiesAppRoot .chart{
+    z-index: 20;
+    position: fixed;
+    bottom: 0;
+}
