@@ -7,7 +7,7 @@ export function countCenterOfGeoJson(geoJson: OSMGeoJson):ICoordinates{
 
 export function getCoordinates(osmCoordinates: OSMCoordinate):ICoordinates{
     return {
-        lat: osmCoordinates[0],
-        lng: osmCoordinates[1]
+        lat: osmCoordinates[1],
+        lng: osmCoordinates[0]
     }
 }

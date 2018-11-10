@@ -49,6 +49,7 @@ export class CitiesAppRoot extends React.Component<
     }
 
     async loadCity(cityName: string) {
+        console.log(`Loading ${cityName}...`);
         const city = await fetchCity(cityName);
         this.setState({ places: [...this.state.places, city] });
     }
@@ -150,7 +151,10 @@ export class CitiesAppRoot extends React.Component<
                                 <Polygon
                                     key={place.place_id}
                                     positions={place.geojson.coordinates[0].map(getCoordinates)}
-                                    onclick={()=>{alert(1)}}
+                                    onclick={()=>{
+
+                                        this.changeCity(place)
+                                    }}
                                     
                                 />
                             ))}
