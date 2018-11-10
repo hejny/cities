@@ -80,24 +80,35 @@ export class CitiesAppRoot extends React.Component<
                     Center
                 </button>
 
+                <div className="avatar">
+                    <div
+                        className="inner"
+                        style={{
+                            background: `url("https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fwww.timeout.com%2Fwp-content%2Fuploads%2F2014%2F08%2FCharles_Bridge_courtyardpixShutterstock.com_.jpg&u=https://www.timeout.com/wp-content/uploads/2014/08/Charles_Bridge_courtyardpixShutterstock.com_.jpg")`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'bottom center',
+                        }}
+                    />
+                </div>
+
                 <div className="chart">
-                    <PieChart width={420} height={210}>
+                    <PieChart width={190} height={190}>
                         {/* <Legend /> */}
                         <Pie
                             data={PIE_DATA}
                             dataKey="value"
-                            cx={200}
-                            cy={200}
-                            startAngle={180}
+                            cx={90}
+                            cy={90}
+                            startAngle={360}
                             endAngle={0}
-                            innerRadius={10}
-                            outerRadius={50}
+                            innerRadius={1}
+                            outerRadius={90}
                         >
                             {PIE_DATA.map((entry, index) => (
                                 <Cell
                                     key={`slice-${index}`}
                                     fill={entry.color}
-                                    stroke={'black'}
+                                    stroke={'transparent'}
                                 />
                             ))}
                             {/*<Label value="test" position="outside" />
