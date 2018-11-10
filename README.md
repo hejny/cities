@@ -1,5 +1,8 @@
 # Cities
 
+This is project created on [Space Application Hackathon](https://www.facebook.com/events/247008139302302/).
+You can try it out here https://hejny.github.io/cities.
+
 ## Embed in a page
 - Run `npm run build`
 - Copy static files from build/ to your server
