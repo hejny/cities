@@ -10,4 +10,6 @@
     z-index: 20;
     position: fixed;
     bottom: 0;
+
+    border: 1px solid red;
 }

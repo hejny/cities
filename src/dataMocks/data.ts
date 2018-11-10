@@ -27,12 +27,9 @@ export const GRAPH_DATA = [
 ];
 
 export const PIE_DATA = [
-    { name: 'Group A', value: 400, v: 89 },
-    { name: 'Group B', value: 300, v: 100 },
-    { name: 'Group C', value: 200, v: 200 },
-    { name: 'Group D', value: 200, v: 20 },
-    { name: 'Group E', value: 278, v: 40 },
-    { name: 'Group F', value: 189, v: 60 },
+    { name: 'Concrete', value: 400, v: 89, color: '#ccc' },
+    { name: 'Vegetation', value: 300, v: 100, color: '#22cc77' },
+    { name: 'Water', value: 200, v: 200, color: '#1144cc' },
 ];
 
 export const BUBBLE_DATA = [

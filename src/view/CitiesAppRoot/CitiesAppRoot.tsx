@@ -4,10 +4,10 @@ import { Polygon } from 'react-leaflet';
 import { DefaultMap } from '../maps/DefaultMap';
 import { fetchCity, OSMPlace } from '../../tools/fetchCity';
 import { PieChart, Legend, Pie, Cell } from 'recharts';
-import { scaleOrdinal } from 'd3-scale';
-import { schemeCategory10 } from 'd3-scale-chromatic';
+//import { scaleOrdinal } from 'd3-scale';
+//import { schemeCategory10 } from 'd3-scale-chromatic';
 import { PIE_DATA } from '../../dataMocks/data';
-const colors = scaleOrdinal(schemeCategory10).range();
+//const colors = scaleOrdinal(schemeCategory10).range();
 
 interface CitiesAppRootProps {}
 
@@ -71,7 +71,7 @@ export class CitiesAppRoot extends React.Component<
                 </div> */}
 
                 <div className="chart">
-                    <PieChart width={800} height={400}>
+                    <PieChart width={420} height={300}>
                         <Legend />
                         <Pie
                             data={PIE_DATA}
@@ -85,7 +85,7 @@ export class CitiesAppRoot extends React.Component<
                             {PIE_DATA.map((entry, index) => (
                                 <Cell
                                     key={`slice-${index}`}
-                                    fill={colors[index % 10]}
+                                    fill={entry.color}
                                 />
                             ))}
                             {/*<Label value="test" position="outside" />
