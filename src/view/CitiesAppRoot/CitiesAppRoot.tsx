@@ -53,8 +53,18 @@ export class CitiesAppRoot extends React.Component<
     constructor(props: CitiesAppRootProps) {
         super(props);
         this.loadCity('Prague');
-        this.loadCity('Nürnberg');
-        this.loadCity('Berlin');
+        this.loadCity('Warsaw');
+        this.loadCity('Poznan');
+        this.loadCity('Krakow');
+        this.loadCity('Gdansk');
+        this.loadCity('Brno');
+        this.loadCity('Olomouc');
+        this.loadCity('Budapest');
+        //this.loadCity('Nürnberg');
+        //this.loadCity('Berlin');
+        //this.loadCity('Paris'); - only one district
+        //this.loadCity('Bratislava');
+        //this.loadCity('Wien');
     }
 
     async loadCity(cityName: string) {
