@@ -2,20 +2,25 @@ import './CitiesAppRoot.css';
 import * as React from 'react';
 import { Polygon } from 'react-leaflet';
 import { DefaultMap } from '../maps/DefaultMap';
-import { fetchCity, OSMPlace } from '../../tools/fetchCity';
+import { fetchCity, OSMPlace, OSMPlacePlus } from '../../tools/fetchCity';
 import { PieChart, Legend, Pie, Cell } from 'recharts';
 //import { scaleOrdinal } from 'd3-scale';
 //import { schemeCategory10 } from 'd3-scale-chromatic';
 import { PIE_DATA } from '../../dataMocks/data';
 import { ICoordinates } from '../maps/ICoordinates';
-import { getCoordinates, countCenterOfGeoJson } from '../../tools/countCenterOfGeoJson';
+import {
+    getCoordinates,
+    countCenterOfGeoJson,
+} from '../../tools/countCenterOfGeoJson';
+import { CITIES_CZECHIA } from '../../dataMocks/cities';
 //const colors = scaleOrdinal(schemeCategory10).range();
 
 interface CitiesAppRootProps {}
 
 interface CitiesAppRootState {
-    places: OSMPlace[];
-    center: null | ICoordinates;
+    places: OSMPlacePlus[];
+    city: null | OSMPlacePlus;
+    center: ICoordinates;
 }
 
 export class CitiesAppRoot extends React.Component<
@@ -24,20 +29,17 @@ export class CitiesAppRoot extends React.Component<
 > {
     state: CitiesAppRootState = {
         places: [],
+        city: null,
         center: { lat: 50, lng: 14.4 },
     };
 
     constructor(props: CitiesAppRootProps) {
         super(props);
 
-        this.loadCity('Prague');
-        this.loadCity('Warsaw');
-        this.loadCity('Poznan');
-        this.loadCity('Krakow');
-        this.loadCity('Gdansk');
-        this.loadCity('Brno');
-        this.loadCity('Olomouc');
-        this.loadCity('Budapest');
+
+        for(const city of CITIES_CZECHIA){
+            this.loadCity(city);
+        }
 
         //Not working:
         //this.loadCity('Nürnberg');
@@ -65,9 +67,10 @@ export class CitiesAppRoot extends React.Component<
         });
     }
 
-    async changeCity(city: OSMPlace) {
+    async changeCity(city: OSMPlacePlus) {
         this.setState({
-            center: countCenterOfGeoJson(city.geojson)
+            center: countCenterOfGeoJson(city.geojson),
+            city,
         });
     }
 
@@ -89,46 +92,50 @@ export class CitiesAppRoot extends React.Component<
                     Center
                 </button>
 
-                <div className="avatar">
-                    <div
-                        className="inner"
-                        style={{
-                            background: `url("https://proxy.duckduckgo.com/iur/?f=1&image_host=http%3A%2F%2Fwww.timeout.com%2Fwp-content%2Fuploads%2F2014%2F08%2FCharles_Bridge_courtyardpixShutterstock.com_.jpg&u=https://www.timeout.com/wp-content/uploads/2014/08/Charles_Bridge_courtyardpixShutterstock.com_.jpg")`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'bottom center',
-                        }}
-                    >
-
-                        <h1>Prague</h1>
-                    </div>
-                    
-                </div>
-
-                <div className="chart">
-                    <PieChart width={190} height={190}>
-                        {/* <Legend /> */}
-                        <Pie
-                            data={PIE_DATA}
-                            dataKey="value"
-                            cx={90}
-                            cy={90}
-                            startAngle={360}
-                            endAngle={0}
-                            innerRadius={1}
-                            outerRadius={90}
-                        >
-                            {PIE_DATA.map((entry, index) => (
-                                <Cell
-                                    key={`slice-${index}`}
-                                    fill={entry.color}
-                                    stroke={'transparent'}
-                                />
-                            ))}
-                            {/*<Label value="test" position="outside" />
+                {this.state.city && (
+                    <>
+                        <div className="avatar">
+                            <div
+                                className="inner"
+                                style={{
+                                    background: `url("${this.state.city.image}")`,
+                                    //backgroundSize: 'cover',
+                                    //backgroundPosition: 'bottom center',
+                                }}
+                            >
+                                <h1>
+                                    {this.state.city.display_name.split(',')[0]}
+                                </h1>
+                            </div>
+                        </div>
+                        <div className="chart">
+                            <PieChart width={190} height={190}>
+                                {/* <Legend /> */}
+                                <Pie
+                                    data={PIE_DATA}
+                                    dataKey="value"
+                                    cx={90}
+                                    cy={90}
+                                    startAngle={360}
+                                    endAngle={0}
+                                    innerRadius={1}
+                                    outerRadius={90}
+                                >
+                                    {PIE_DATA.map((entry, index) => (
+                                        <Cell
+                                            key={`slice-${index}`}
+                                            fill={entry.color}
+                                            stroke={'transparent'}
+                                        />
+                                    ))}
+                                    {/*<Label value="test" position="outside" />
                             {/*<LabelList position="outside" />*/}
-                        </Pie>
-                    </PieChart>
-                </div>
+                                </Pie>
+                            </PieChart>
+                        </div>
+                    </>
+                )}
+
                 <div
                     className="city"
                     style={{
@@ -147,15 +154,15 @@ export class CitiesAppRoot extends React.Component<
                             <Marker {...{ position, key }} />
                         ))} */}
 
-                            {this.state.places.map((place: OSMPlace) => (
+                            {this.state.places.map((place) => (
                                 <Polygon
                                     key={place.place_id}
-                                    positions={place.geojson.coordinates[0].map(getCoordinates)}
-                                    onclick={()=>{
-
-                                        this.changeCity(place)
+                                    positions={place.geojson.coordinates[0].map(
+                                        getCoordinates,
+                                    )}
+                                    onclick={() => {
+                                        this.changeCity(place);
                                     }}
-                                    
                                 />
                             ))}
                         </DefaultMap>

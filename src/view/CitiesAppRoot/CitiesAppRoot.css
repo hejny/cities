@@ -64,6 +64,9 @@
     align-content: center;
     justify-items: center; */
 
+    background-size: cover!important;
+    background-position: bottom center!important;
+
     border: 1px solid #ccc; 
 } 
 
