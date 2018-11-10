@@ -71,8 +71,8 @@ export class CitiesAppRoot extends React.Component<
                 </div> */}
 
                 <div className="chart">
-                    <PieChart width={420} height={300}>
-                        <Legend />
+                    <PieChart width={420} height={210}>
+                        {/* <Legend /> */}
                         <Pie
                             data={PIE_DATA}
                             dataKey="value"
@@ -86,6 +86,7 @@ export class CitiesAppRoot extends React.Component<
                                 <Cell
                                     key={`slice-${index}`}
                                     fill={entry.color}
+                                    stroke={'black'}
                                 />
                             ))}
                             {/*<Label value="test" position="outside" />
