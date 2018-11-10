@@ -1,7 +1,27 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
 
 .CitiesAppRoot{
     font-family: 'Roboto', sans-serif;
+}
+
+
+
+.CitiesAppRoot .app-name{
+    
+    z-index: 30;
+    position: fixed;
+    top:0;
+    left: 50vw;
+    transform: translate(-50%,0);
+    text-align: center;
+    /* background-color: white; */
+    padding: 20px;
+    font-family: 'Pacifico', cursive;
+    font-size: 2em;
+    font-weight: bold;
+    text-shadow: red 0 0 15px;
+    
 }
 
 .CitiesAppRoot .map{

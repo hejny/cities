@@ -36,8 +36,7 @@ export class CitiesAppRoot extends React.Component<
     constructor(props: CitiesAppRootProps) {
         super(props);
 
-
-        for(const city of CITIES_CZECHIA){
+        for (const city of CITIES_CZECHIA) {
             this.loadCity(city);
         }
 
@@ -88,6 +87,8 @@ export class CitiesAppRoot extends React.Component<
                     Prague
                 </div> */}
 
+                <nav className="app-name">Hot🔥Net</nav>
+
                 <button className="center" onClick={() => this.centerByGPS()}>
                     Center
                 </button>
@@ -98,7 +99,9 @@ export class CitiesAppRoot extends React.Component<
                             <div
                                 className="inner"
                                 style={{
-                                    background: `url("${this.state.city.image}")`,
+                                    background: `url("${
+                                        this.state.city.image
+                                    }")`,
                                     //backgroundSize: 'cover',
                                     //backgroundPosition: 'bottom center',
                                 }}
@@ -112,7 +115,11 @@ export class CitiesAppRoot extends React.Component<
                             <PieChart width={190} height={190}>
                                 {/* <Legend /> */}
                                 <Pie
-                                    data={generate_PIE_DATA()}
+                                    data={generate_PIE_DATA(
+                                        this.state.city.display_name.split(
+                                            ',',
+                                        )[0],
+                                    )}
                                     dataKey="value"
                                     cx={90}
                                     cy={90}
@@ -121,7 +128,11 @@ export class CitiesAppRoot extends React.Component<
                                     innerRadius={1}
                                     outerRadius={90}
                                 >
-                                    {generate_PIE_DATA().map((entry, index) => (
+                                    {generate_PIE_DATA(
+                                        this.state.city.display_name.split(
+                                            ',',
+                                        )[0],
+                                    ).map((entry, index) => (
                                         <Cell
                                             key={`slice-${index}`}
                                             fill={entry.color}
@@ -164,7 +175,11 @@ export class CitiesAppRoot extends React.Component<
                                         this.changeCity(place);
                                     }}
                                     stroke={true}
-                                    color = {place===this.state.city?'#1166cc':'#777'}
+                                    color={
+                                        place === this.state.city
+                                            ? '#1166cc'
+                                            : '#777'
+                                    }
 
                                     // stroke?: boolean;
                                     // color?: string;

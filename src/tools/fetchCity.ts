@@ -2,9 +2,7 @@ import { searchImage } from './searchImage';
 
 const OSM_API = 'https://nominatim.openstreetmap.org';
 
-export async function fetchCity(
-    cityName: string,
-): Promise<OSMPlacePlus> {
+export async function fetchCity(cityName: string): Promise<OSMPlacePlus> {
     const url = `${OSM_API}/search?format=json&accept-language=en&city=${encodeURIComponent(
         cityName,
     )}&polygon_geojson=1&limit=1`;
@@ -49,8 +47,7 @@ export interface OSMPlace {
     geojson: OSMGeoJson;
 }
 
-
-export type OSMPlacePlus = OSMPlace&{image:string};
+export type OSMPlacePlus = OSMPlace & { image: string };
 
 export interface OSMGeoJson {
     type: 'Polygon'; //There are other types of GeoJSON, but for this purpose we are using only polygon.
