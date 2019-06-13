@@ -1,3 +1,5 @@
+# `This app was made on a hackathon and not maintained for a long time. So expect a very pure code quality.`
+
 # Cities
 
 This is project created on [Space Application Hackathon](https://www.facebook.com/events/247008139302302/).
